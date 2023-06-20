@@ -1,0 +1,50 @@
+﻿@model IEnumerable<StudentProfile.ViewModel.StudentIndexModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Students Details</h1>
+
+<table class="table">
+    <thead class="table-striped">
+        <tr>
+            <td>Student Name</td>
+            <td>Age</td>
+            <td>Department</td>
+            <td>Gender</td>
+            <td>Email</td>
+            <td>Contact</td>
+            <td>CGPA</td>
+            <td>Actions</td>
+            
+
+        </tr>
+    </thead>
+
+    @foreach(var obj in Model)
+    {
+        <tr>
+            <td>@obj.Name</td>
+            <td>@obj.Age</td>
+            <td>@obj.Department</td>
+            <td>@obj.Gender</td>
+            <td>@obj.Email</td>
+            <td>@obj.Phone</td>
+            <td>@obj.Cgpa</td>
+            <td>
+                <a asp-action="Edit" class="btn btn-primary" asp-controller="Student" asp-route-id="@obj.Id">Edit</a>
+                <a asp-action="Delete" class="btn btn-danger" asp-controller="Student" asp-route-id="@obj.Id">Delete</a>
+            </td>
+        </tr>
+    }
+
+</table>
+<table>
+    <tr>
+        <td>
+            <a asp-action="Create" class="btn btn-primary" asp-controller="Student">Add New Student</a>
+        </td>
+    </tr>
+
+</table>
+

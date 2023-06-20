@@ -1,0 +1,113 @@
+﻿@model StudentProfile.ViewModel.StudentCreateModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+<form   asp-action="Create">
+    <table>
+
+        <tr>
+            <td>
+                <label asp-for="Name"></label>
+            </td>
+            <td>
+                <input asp-for="Name" placeholder="Enter student name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="Age"></label>
+            </td>
+            <td>
+                <input asp-for="Age" placeholder="Enter student name" class="form-control" />
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="Gender"></label>
+            </td>
+            <td>
+                <div class="form-check">
+                    <input asp-for="IsGender" class="form-check-input" name="Gender" type="radio" value="true" id="male">
+                    <label class="form-check-label" for="male">Male</label>
+                </div>
+
+            </td>
+
+            <td>
+                <div class="form-check">
+                    <input asp-for="IsGender" class="form-check-input" name="Gender" type="radio" value="false" id="female">
+                    <label class="form-check-label" for="female">Female</label>
+                </div>
+
+            </td>
+
+        </tr>
+
+        <tr>
+            <td>
+                <label asp-for="Department"></label>
+            </td>
+            <td>
+                <select name="department" class="form-control">
+                    <option value="none">None</option>
+                    <option value="Cse">CSE</option>
+                    <option value="eee">EEE</option>
+                    <option value="civil">Civil</option>
+
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="Email"></label>
+            </td>
+            <td>
+                <input asp-for="Email" placeholder="Enter student email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label asp-for="Phone"></label>
+            </td>
+            <td>
+                <input asp-for="Phone" placeholder="Enter student contact" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="Cgpa"></label>
+            </td>
+            <td>
+                <input asp-for="Cgpa" placeholder="Enter student cgpa" class="form-control" />
+                <span asp-validation-for="Cgpa" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="Password"></label>
+            </td>
+            <td>
+                <input asp-for="Password" type="password" placeholder="Enter student password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="btn btn-primary" type="submit">Create</button>
+                <a asp-action="Index" class="btn btn-success" asp-controller="Student">Back to List</a>
+            </td>
+        </tr>
+    </table>
+
+ </form>
+
+
