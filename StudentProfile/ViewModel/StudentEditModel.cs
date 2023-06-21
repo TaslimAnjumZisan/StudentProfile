@@ -1,14 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace StudentProfile.ViewModel
 {
     public class StudentEditModel
-    {
+    {       
         [Key]
         public int Id { get; set; }
+        [RegularExpression("([A-Z*a-z]+)", ErrorMessage = "Please enter valid Name")]
+        [StringLength(20, ErrorMessage = "Do not enter more than 20 characters")]
         [Required]
-        [StringLength(50)]
+        
         [DisplayName("Student Name")]
         public string Name { get; set; }
         [Required]
@@ -35,23 +38,6 @@ namespace StudentProfile.ViewModel
         [Required]
         public string Password { get; set; }
 
-        public string Gender
-        {
-            get
-            {
-                if (IsGender)
-                {
-                    return "Male";
-                }
-                else
-                {
-                    return "Female";
-                }
-            }
-            set
-            {
-
-            }
-        }
+        public List<SelectListItem> DepartmentList { get; set; }
     }
 }

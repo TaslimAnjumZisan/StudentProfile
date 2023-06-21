@@ -1,16 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace StudentProfile.ViewModel
 {
-    public class StudentDeleteModel
+    public class StudentCreateNewModel
     {
-        [Key]
-        public int Id { get; set; }
-        [Required]
-        [StringLength(50)]
-        [DisplayName("Student Name")]
+
+        [RegularExpression("([A-Z*a-z]+)", ErrorMessage = "Please enter valid Name")]
+        [StringLength(20, ErrorMessage = "Do not enter more than 20 characters")]
         public string Name { get; set; }
         [Required]
         public DateTime AdmitionDate { get; set; } = DateTime.Now;
@@ -35,7 +32,5 @@ namespace StudentProfile.ViewModel
 
         [Required]
         public string Password { get; set; }
-        public List<SelectListItem> DepartmentList { get; set; }
-
     }
 }

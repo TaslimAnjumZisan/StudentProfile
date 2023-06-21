@@ -53,13 +53,17 @@
                 <label asp-for="Department"></label>
             </td>
             <td>
-                <select name="department" class="form-control">
+
+                <select asp-for="Department" asp-items="Model.DepartmentList" name="department" class="form-control">
+                   @* <option>Select Department</option>*@
+                </select>
+                @*<select name="department" class="form-control">
                     <option value="none">None</option>
                     <option value="Cse">CSE</option>
                     <option value="eee">EEE</option>
                     <option value="civil">Civil</option>
 
-                </select>
+                </select>*@
             </td>
         </tr>
         <tr>

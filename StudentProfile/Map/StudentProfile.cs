@@ -12,6 +12,11 @@ namespace StudentProfile.Map
             CreateMap<Student, StudentCreateModel>().ReverseMap();
             CreateMap<Student, StudentEditModel>().ReverseMap();
             CreateMap<Student, StudentDeleteModel>().ReverseMap();
+            CreateMap<Student, StudentCreateNewModel>().ReverseMap();
+
+            CreateMap<Student, StudentEditNewModel>().ReverseMap();
+            CreateMap<Student, StudentDeleteNewModel>().ReverseMap();
+
 
         }
     }

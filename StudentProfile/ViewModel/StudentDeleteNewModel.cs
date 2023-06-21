@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace StudentProfile.ViewModel
 {
-    public class StudentDeleteModel
+    public class StudentDeleteNewModel
     {
         [Key]
         public int Id { get; set; }
@@ -35,7 +35,7 @@ namespace StudentProfile.ViewModel
 
         [Required]
         public string Password { get; set; }
-        public List<SelectListItem> DepartmentList { get; set; }
+        
 
     }
 }

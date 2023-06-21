@@ -1,15 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace StudentProfile.ViewModel
 {
-    public class StudentDeleteModel
+    public class StudentEditNewModel
     {
-        [Key]
+      
         public int Id { get; set; }
         [Required]
-        [StringLength(50)]
+        [RegularExpression("([A-Z*a-z]+)", ErrorMessage = "Please enter valid Name")]
+        [StringLength(20, ErrorMessage = "Do not enter more than 20 characters")]
         [DisplayName("Student Name")]
         public string Name { get; set; }
         [Required]
@@ -35,7 +35,6 @@ namespace StudentProfile.ViewModel
 
         [Required]
         public string Password { get; set; }
-        public List<SelectListItem> DepartmentList { get; set; }
 
     }
 }

@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using StudentProfile.Data;
-
+using StudentProfile.manager.managerImplementation;
+using StudentProfile.manager.managerInterface;
+using StudentProfile.service.serviceImplementation;
+using StudentProfile.service.serviceInterface;
 
 namespace StudentProfile
 {
@@ -17,7 +20,8 @@ namespace StudentProfile
 
                 ));
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
+            builder.Services.AddScoped<IStudentsService, StudentsService>();
+            builder.Services.AddScoped<IStudentsManager, StudentsManager>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
