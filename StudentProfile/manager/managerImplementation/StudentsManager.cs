@@ -1,26 +1,52 @@
-﻿using Microsoft.EntityFrameworkCore;
-using StudentProfile.Data;
+﻿using AutoMapper;
 using StudentProfile.manager.managerInterface;
 using StudentProfile.Models;
+using StudentProfile.service.serviceInterface;
+using StudentProfile.ViewModel;
 
-namespace StudentProfile.manager.managerImplementation
-{
+namespace StudentProfile.service.serviceImplementation
+{                                
     public class StudentsManager : IStudentsManager
-    {
-        private readonly StudentDbContext _studentDbContext;
+    {                   
+        private readonly IStudentsRepository _studentsRepository;
+        private readonly IMapper _mapper;
+                               
+        public StudentsManager(IStudentsRepository studentsRepository, IMapper mapper)
+        {
+            _studentsRepository = studentsRepository;
+            _mapper = mapper;
+        }
+        public  async Task< List<StudentIndexModel>> GetAllStudentsAsync()
+        {
+            var existListOfStudent = await _studentsRepository.GetAllStudentsAsync();
+            var studentList = _mapper.Map<List<Student>, List<StudentIndexModel>>(existListOfStudent);
+            return studentList;
 
-        public StudentsManager(StudentDbContext studentDbContext)
-        {
-            _studentDbContext = studentDbContext;
         }
-        public async Task<List<Student>> GetAllStudentsAsync()
+
+        public async Task<Boolean> CreateStudentAsync(StudentCreateModel model)
         {
-            var listOfStudent =  _studentDbContext.Students.ToList();
-            if (listOfStudent is not null)
-            {
-                return listOfStudent;
-            }
-            return null;
+            var student = _mapper.Map<StudentCreateModel,Student>(model);
+            Boolean result = await _studentsRepository.CreateStudentAsync(student);
+            return result;
+
         }
+
+        public async Task<StudentEditModel> GetStudentBy(int id)
+        {
+            var studentDb= await _studentsRepository.GetStudentBy(id);
+            var student = _mapper.Map< Student, StudentEditModel>(studentDb);
+            return student;
+        }
+
+        public async Task<Boolean> UpdateStudent(StudentEditModel model)
+        {
+            //var studentDb = await _studentsRepository.
+            var student = _mapper.Map<StudentEditModel,Student>(model);
+            Boolean result = await _studentsRepository.UpdateStudent(student);
+            return result;
+        }
+
+
     }
 }

@@ -1,12 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NuGet.Configuration;
 
 namespace StudentProfile.ViewModel
 {
     public class StudentCreateModel
     {
-     
+        public StudentCreateModel()
+        {
+            DepartmentList = new List<SelectListItem>();
+        }
+
         [Required]
         [RegularExpression("([A-Z*a-z]+)", ErrorMessage = "Please enter valid Name")]
         [StringLength(20, ErrorMessage = "Do not enter more than 20 characters")]
@@ -36,7 +41,7 @@ namespace StudentProfile.ViewModel
         [Required]
         public string Password { get; set; }
 
-        public List<SelectListItem> DepartmentList { get; set; }
+        public virtual IEnumerable<SelectListItem> DepartmentList { get; set; }
 
 
     }

@@ -11,21 +11,20 @@ namespace StudentProfile.Controllers
 {
     public class StudentController : Controller
     {
-        private readonly IStudentsService _studentsService;
+        private readonly IStudentsManager _studentsManager;
 
-        public StudentController(IStudentsService studentsService)
+        public StudentController(IStudentsManager studentsManager)
         {
-            _studentsService = studentsService;
+            _studentsManager = studentsManager;
 
         }
         public async Task<IActionResult> Index()
         {
-            var studentList = await _studentsService.GetAllStudentsAsync();
-
-
+            var studentList = await _studentsManager.GetAllStudentsAsync();
             return View(studentList);
         }
 
+        [HttpGet]
         public IActionResult Create()
         {
             var model = new StudentCreateModel();
@@ -41,80 +40,106 @@ namespace StudentProfile.Controllers
             return View(model);
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult Create(StudentCreateNewModel obj)
-        //{
-        //    try
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            var model = _mapper.Map<StudentCreateNewModel, Student>(obj);
-        //            _db.Students.Add(model);
-        //            _db.SaveChanges();
-        //            return RedirectToAction("Index");
-        //        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(StudentCreateModel obj)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Boolean result = await _studentsManager.CreateStudentAsync(obj);
+                    if (result)
+                    {
+                        //ToDo Need to Incorporate Flash Message
+                    }
+                    return RedirectToAction("Index");
+                }
 
-        //        return View(obj);
-        //    }
-        //    catch (Exception exp)
-        //    {
-        //        throw new Exception(exp.Message);
-        //    }
-        //}
+                obj.DepartmentList = new List<SelectListItem>()
+            {
+                new SelectListItem(){Text="Select Department",Value=""},
+                new SelectListItem(){Text="CSE",Value="CSE"},
+                new SelectListItem(){Text="EEE",Value="EEE"},
+                new SelectListItem(){Text="CIVIL",Value="CIVIL"},
+            };
 
-        //public IActionResult Edit(int? id)
-        //{
-        //    try
-        //    {
-        //        if (id == null || id == 0)
-        //        {
-        //            return NotFound();
-        //        }
-        //        var getFromDb = _db.Students.Find(id);
+                return View(obj);
+            }
+            catch (Exception exp)
+            {
+                throw new Exception(exp.Message);
+            }
+        }
 
-        //        var model = _mapper.Map<Student, StudentEditModel>(getFromDb);
-        //        model.DepartmentList = new List<SelectListItem>()
-        //    {
-        //        new SelectListItem(){Text="Select Department",Value=""},
-        //        new SelectListItem(){Text="CSE",Value="CSE"},
-        //        new SelectListItem(){Text="EEE",Value="EEE"},
-        //        new SelectListItem(){Text="CIVIL",Value="CIVIL"},
-        //    };
 
-        //        if (model is null)
-        //        {
-        //            return NotFound();
-        //        }
 
-        //        return View(model);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception(ex.Message);
-        //    }
-        //}
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult Edit(StudentEditNewModel obj)
-        //{
-        //    try
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            var model = _mapper.Map<StudentEditNewModel, Student>(obj);
-        //            _db.Students.Update(model);
-        //            _db.SaveChanges();
-        //            return RedirectToAction("Index");
-        //        }
-        //        return View(obj);
-        //    }
-        //    catch (Exception exp)
-        //    {
-        //        throw new Exception(exp.Message);
-        //    }
-        //}
+
+
+
+        public async Task< IActionResult> Edit(int id)
+        {
+            try
+            {
+
+                var model = await _studentsManager.GetStudentBy(id);
+                model.DepartmentList = new List<SelectListItem>()
+                    {
+                new SelectListItem(){Text="Select Department",Value=""},
+                new SelectListItem(){Text="CSE",Value="CSE"},
+                new SelectListItem(){Text="EEE",Value="EEE"},
+                new SelectListItem(){Text="CIVIL",Value="CIVIL"},
+                    };
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+           
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(StudentEditModel obj)
+        {
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Boolean result = await _studentsManager.UpdateStudent(obj);
+                    if (result)
+                    {
+                        //ToDo Need to Incorporate Flash Message
+                    }
+                    return RedirectToAction("Index");
+                }
+                return View(obj);
+            }
+            catch (Exception exp)
+            {
+                throw new Exception(exp.Message);
+            }
+
+            //try
+            //{
+            //    if (ModelState.IsValid)
+            //    {
+            //        //var model = _mapper.Map<StudentEditNewModel, Student>(obj);
+            //        //_db.Students.Update(model);
+            //        //_db.SaveChanges();
+            //        await _studentsManager.GetStudentBy(obj);
+            //        return RedirectToAction("Index");
+            //    }
+            //    return View(obj);
+            //}
+            //catch (Exception exp)
+            //{
+            //    throw new Exception(exp.Message);
+            //}
+        }
 
 
         //public IActionResult Delete(int? id)

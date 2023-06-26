@@ -20,8 +20,8 @@ namespace StudentProfile
 
                 ));
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            builder.Services.AddScoped<IStudentsService, StudentsService>();
             builder.Services.AddScoped<IStudentsManager, StudentsManager>();
+            builder.Services.AddScoped<IStudentsRepository,StudentsRepository>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

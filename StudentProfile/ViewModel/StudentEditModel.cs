@@ -5,7 +5,13 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace StudentProfile.ViewModel
 {
     public class StudentEditModel
-    {       
+    {
+
+        public StudentEditModel()
+        {
+            DepartmentList = new List<SelectListItem>();
+        }
+
         [Key]
         public int Id { get; set; }
         [RegularExpression("([A-Z*a-z]+)", ErrorMessage = "Please enter valid Name")]
