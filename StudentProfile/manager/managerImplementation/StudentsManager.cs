@@ -47,6 +47,18 @@ namespace StudentProfile.service.serviceImplementation
             return result;
         }
 
+        public async Task<StudentDeleteModel> GetStudentById(int id)
+        {
+            var studentDb = await _studentsRepository.GetStudentById(id);
+            var student = _mapper.Map<Student, StudentDeleteModel>(studentDb);
+            return student;
+        }
 
+        public async Task<Boolean> DeleteStudent(StudentDeleteModel model)
+        {
+            var student = _mapper.Map<StudentDeleteModel,Student>(model);
+            Boolean result = await _studentsRepository.DeleteStudent(student);
+            return result;
+        }
     }
 }

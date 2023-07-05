@@ -10,5 +10,9 @@ namespace StudentProfile.service.serviceInterface
         //Task<Boolean> EditStudentAsync(StudentEditModel model);
         Task<StudentEditModel> GetStudentBy(int id);
         Task<Boolean> UpdateStudent(StudentEditModel model);
+
+        Task<StudentDeleteModel> GetStudentById(int id);
+        Task<Boolean> DeleteStudent(StudentDeleteModel model);
+
     }
 }

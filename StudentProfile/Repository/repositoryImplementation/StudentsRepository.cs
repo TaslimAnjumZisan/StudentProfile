@@ -67,5 +67,26 @@ namespace StudentProfile.manager.managerImplementation
 
         }
 
+        public async Task<Student> GetStudentById(int id)
+        {
+            var student = await _studentDbContext.Students.FindAsync(id);
+            return student;
+        }
+
+        public async Task<Boolean> DeleteStudent(Student model, CancellationToken cancellationToken = default)
+        {
+            Boolean isDelete = false;
+            int count = 0;
+            var exists = await _studentDbContext.Students.AnyAsync(x => x.Email.Trim().ToLower() == model.Email.Trim().ToLower());
+            if(cancellationToken.IsCancellationRequested == false)
+            { if (exists)
+                {
+                    _studentDbContext.Students.Remove(model);
+                    count= await _studentDbContext.SaveChangesAsync();
+                    isDelete = true;
+                }   
+            }
+            return isDelete;
+        }
     }
 }

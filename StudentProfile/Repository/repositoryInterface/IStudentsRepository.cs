@@ -9,6 +9,9 @@ namespace StudentProfile.manager.managerInterface
         //Task<Boolean> EditStudentAsync(int id);
         Task<Student>GetStudentBy(int id);
         Task<Boolean> UpdateStudent(Student model, CancellationToken cancellationToken = default);
+        Task<Student>GetStudentById(int id);
+        Task<Boolean> DeleteStudent(Student model, CancellationToken cancellationToken = default);
+
 
     }
 }

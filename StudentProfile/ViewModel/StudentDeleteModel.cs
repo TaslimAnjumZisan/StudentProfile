@@ -6,6 +6,11 @@ namespace StudentProfile.ViewModel
 {
     public class StudentDeleteModel
     {
+
+        public StudentDeleteModel()
+        {
+            DepartmentList = new List<SelectListItem>();
+        }
         [Key]
         public int Id { get; set; }
         [Required]

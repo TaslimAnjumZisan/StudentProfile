@@ -5,7 +5,7 @@ namespace StudentProfile.ViewModel
 {
     public class StudentEditNewModel
     {
-      
+
         public int Id { get; set; }
         [Required]
         [RegularExpression("([A-Z*a-z]+)", ErrorMessage = "Please enter valid Name")]
