@@ -24,7 +24,8 @@ namespace StudentProfile.ViewModel
         public int Age { get; set; }
 
         [Required]
-        public Boolean IsGender { get; set; }
+        [DisplayName("Gender")]
+        public Boolean IsGender { get; set; } = true;
         [Required]
         [DisplayName("Email")]
         public string Email { get; set; }
@@ -41,8 +42,8 @@ namespace StudentProfile.ViewModel
         [Required]
         public string Password { get; set; }
 
+       
         public virtual IEnumerable<SelectListItem> DepartmentList { get; set; }
-
-
+     
     }
 }

@@ -45,10 +45,7 @@ namespace StudentProfile.ViewModel
                 else
                     return "Female";
             }
-            set
-            {
-
-            }
+            
         }
     }
 }

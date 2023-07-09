@@ -33,7 +33,7 @@
             </td>
             <td>
                 <div class="form-check">
-                    <input asp-for="IsGender" class="form-check-input" name="Gender" type="radio" value="true" id="male">
+                    <input asp-for="IsGender" class="form-check-input" name="IsGender" type="radio" value="true" id="male">
                     <label class="form-check-label" for="male">Male</label>
                 </div>
 
@@ -41,12 +41,12 @@
 
             <td>
                 <div class="form-check">
-                    <input asp-for="IsGender" class="form-check-input" name="Gender" type="radio" value="false" id="female">
+                    <input asp-for="IsGender" class="form-check-input" name="IsGender" type="radio" value="false" id="female">
                     <label class="form-check-label" for="female">Female</label>
                 </div>
 
             </td>
-
+            <span asp-validation-for="IsGender" class="text-danger"></span>
         </tr>
 
         <tr>
