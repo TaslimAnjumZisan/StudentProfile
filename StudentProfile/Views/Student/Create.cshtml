@@ -1,10 +1,10 @@
-﻿@model StudentProfile.ViewModel.StudentCreateModel
+@model StudentProfile.ViewModel.StudentCreateModel
 @{
     ViewData["Title"] = "Create";
 }
 
 <h1>Create</h1>
-<form   asp-action="Create">
+@* <form   asp-action="Create">
     <table>
 
         <tr>
@@ -99,12 +99,354 @@
         </tr>
         <tr>
             <td>
-                <button class="btn btn-primary" type="submit">Create</button>
+                <button class="btn btn-primary" type="submit" onclick="showAlert()">Create</button>
                 <a asp-action="Index" class="btn btn-success" asp-controller="Student">Back to List</a>
             </td>
         </tr>
     </table>
 
- </form>
+ </form> *@
+
+
+
+@* <form asp-action="Create"> *@
+    <table>
+
+        <tr>
+            <td>
+                <label asp-for="Name"></label>
+            </td>
+            <td>
+                <input asp-for="Name" placeholder="Enter student name" class="form-control" />
+                <span  id="msgName" class="text-danger"></span>
+           
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="Age"></label>
+            </td>
+            <td>
+                <input asp-for="Age" placeholder="Enter student name" class="form-control" />
+                <span id="msgAge" class="text-danger"></span>
+               
+
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="IsGender"></label>
+            </td>
+            <td>
+                <div class="form-check">
+                    <input asp-for="IsGender" class="form-check-input" name="IsGender" type="radio" value="true" id="male">
+                    <label class="form-check-label" for="male">Male</label>
+                </div>
+
+            </td>
+
+            <td>
+                <div class="form-check">
+                    <input asp-for="IsGender" class="form-check-input" name="IsGender" type="radio" value="false" id="female">
+                    <label class="form-check-label" for="female">Female</label>
+                </div>
+
+            </td>
+            <span asp-validation-for="IsGender" class="text-danger"></span>
+        </tr>
+
+        <tr>
+            <td>
+                <label asp-for="Department"></label>
+            </td>
+            <td>
+                <select asp-for="Department" asp-items="Model.DepartmentList" name="department" class="form-control">
+                </select>
+                <span id="msgDepartment" class="text-danger"></span>
+                
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="Email"></label>
+            </td>
+            <td>
+                <input asp-for="Email" placeholder="Enter student email" class="form-control" />
+                <span id="msgEmail" class="text-danger"></span>
+            
+
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label asp-for="Phone"></label>
+            </td>
+            <td>
+                <input asp-for="Phone" placeholder="Enter student contact" class="form-control" />
+                <span id="msgPhone" class="text-danger"></span>
+                
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="Cgpa"></label>
+            </td>
+            <td>
+                <input asp-for="Cgpa" placeholder="Enter student cgpa" class="form-control" />
+                <span id="msgCgpa" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="Password"></label>
+            </td>
+            <td>
+                <input asp-for="Password" type="text" placeholder="Enter student password" class="form-control" />
+                <span id="msgPassword" class="text-danger"></span>
+               
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <button  class="btn btn-primary" id="CreateId" type="submit">Create</button>
+                <a asp-action="Index" class="btn btn-success" asp-controller="Student">Back to List</a>
+            </td>
+        </tr>
+    </table>
+
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Student Name</th>
+            <th scope="col">Age</th>
+            <th scope="col">Email</th>
+            <th scope="col">Department</th>
+            <th scope="col">CGPA</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Contact Number</th>
+        </tr>
+    </thead>
+    <tbody id="tabletbody">
+       
+    </tbody>
+</table>
+
+
+
+<div class="container">
+    <h1 class="text-center">Dynamically Add and Remove HTML Table Row</h1>
+    <hr>
+    <table class="table table-bordered" id="testtable">
+      
+        <thead>
+            <tr>
+               
+                <th class="text-center">Name</th>
+                <th class="text-center">Age</th>
+                
+                <th class="text-center">Email</th>
+                <th class="text-center">Phone</th>
+                <th class="text-center">CGPA</th>
+                <th class="text-center">Action</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+          
+        </tbody>
+    </table>
+    <button class="btn btn-primary btn-sm rounded-1" id="addbuton" type="button">Add Row</button>
+    <button class="btn btn-primary btn-sm rounded-2" id="saveButton" type="button">Save</button>
+</div>
+
+
+
+@* </form> *@
+
+@section scripts{
+    <script type="text/javascript">
+
+    
+    
+        $(document).ready(function () {
+
+            //javascript required field
+
+            $("#CreateId").click(function () {
+              
+                let name = $("#Name").val();
+                if (name == "") {
+                    $("#msgName").text("Name is required");
+
+                }
+
+                let age = $("#Age").val();
+                if (age == 0 || age=="") {
+
+                    $("#msgAge").text("Age is required");
+                }
+               
+                let department = $("#Department").val();
+                console.log(department);
+                if (department = ""|| department== 0) {
+                    $("#msgDepartment").text("Department is required");
+                }
+
+                let phone = $("#Phone").val();
+                if (phone == "") {
+                    $("#msgPhone").text("Phone number required");
+                }
+
+                let email = $("#Email").val();
+                if (email == "") {
+                    $("#msgEmail").text("Email is required");
+                }
+
+                let password = $("#Password").val();
+                if (password == "") {
+                    $("#msgPassword").text("Password is required");
+                }
+
+                let studentObject = {
+                    Name: name,
+                    Age: age,
+                    Department: department,
+                    Phone: phone,
+                    Email: email,
+                    Password: password
+                }
+                $.ajax({
+                    type: "POST",
+                    url: '/Student/Create',
+                    data: { obj: studentObject },
+                    dataType: 'JSON',
+                    success: function () {
+
+                        Getdata();
+                       
+                    },
+                });
+            })
+            Getdata();
+
+            $('#addbuton').click(function () {
+                var tr = $('<tr>')
+                tr.append(`<td><input type="text" id="Name" class="form-control"></td>`)
+                tr.append(`<td><input type="text" id="Age" class="form-control"></td>`)
+
+                tr.append(`<td><input type="text" id="Email" class="form-control"></td>`)
+                tr.append(`<td><input type="text" id="Phone" class="form-control"></td>`)
+                tr.append(`<td><input type="text" id="Cgpa" class="form-control"></td>`)
+                tr.append(`<td><div><button class="btn btn-danger btn-sm rounded-0" id="delete_selected" onclick="removeRow(this)" type="button">Delete</button></div></td>`)
+                $('#testtable').append(tr)
+
+
+
+            })
+
+            $('#saveButton').click(function () {
+                var data = [];
+                var uniqueVal = [];
+
+                $('#testtable tbody tr').each(function () {
+                    var nAme = $(this).find('input').eq(0).val();
+                    var aGe = $(this).find('input').eq(1).val();
+                    var eMail = $(this).find('input').eq(2).val();
+                    var pHone = $(this).find('input').eq(3).val();
+                    var cGpa = $(this).find('input').eq(4).val();
+
+
+                    var obj = {
+                        name: nAme,
+                        age: aGe,
+                        email: eMail,
+                        phone: pHone,
+                        cgpa: cGpa
+                    };
+                    debugger
+                    data.push(obj);
+                   // var email = $('#Email').val();
+                    console.log(obj.email);
+                    var obj2 = {
+                        name: nAme,
+                        age: aGe,
+                        email: eMail,
+                        phone: pHone,
+                        cgpa: cGpa
+                    };
+                   if(obj.indexOf(this.email) == -1){
+                        uniqueVal.push(obj2)
+
+                    }
+                    console.log(uniqueVal);
+                });
+                console.log(data);
+            });
+
+
+
+            // Remove Row button click event
+            function removeRow(button) {  
+                $(button).closest('tr').remove();
+            }
+
+
+        });
+
+        //get data instantly after save the data
+
+        function Getdata() {
+            $.ajax({
+                type: "GET",
+                url: '/Student/GetDetails',
+                
+                dataType: 'JSON',
+                success: function (Result) {
+                    debugger
+                    console.log(Result);
+                    var getdetails = ``;
+
+                    $.each(Result, function (i, v) {
+                        getdetails += ` <tr>
+                                             <td> ${v.name} </td>
+                                             <td> ${v.age} </td>
+                                             <td> ${v.email} </td>
+                                             <td> ${v.department} </td>
+                                             <td> ${v.cgpa} </td>
+                                             <td> ${v.gender} </td>
+                                             <td> ${v.phone} </td>
+                                            
+
+                    </tr>`
+                    })
+                    $("#tabletbody").html(getdetails)
+
+                },
+
+            });
+
+        }
+
+        
+
+
+                // Add Table Row
+
+    
+
+
+        
+   
+    </script>
+}
+
 
 
